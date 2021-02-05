@@ -1,0 +1,83 @@
+
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="area"></div>
+    <div class="top-nav">
+        <ul>
+            <li>
+                <input type="text" placeholder="Search..">
+                <a href=""><i class="fa fa-user fa-2x"></i></a>
+            </li>
+        </ul>
+
+        
+
+    </div>
+    <nav class="main-menu">
+
+        <ul>
+
+            <li>
+                <a class="nav-link" (click)="routeToProduct()"><i class="fa fa-tachometer fa-2x"></i>
+                    <span class="nav-text">Dashboard</span>
+                  </a>
+            </li>
+           <!-- <li>
+                <a href=""><i class="fa fa-heart fa-2x"></i>
+                    <span class="nav-text">Wishlist</span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a class="nav-link" (click)="routeToProductAddedByMe()"><i class="fa fa-book fa-2x"></i>
+                    <span class="nav-text">My Product</span>
+                </a>
+            </li>-->
+            <li>
+                <a class="nav-link" (click)="routeToMyOrders()"><i class="fa fa-shopping-bag fa-2x"></i>
+                    <span class="nav-text">Orders</span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" (click)="routeToViewMyCart()"><i class="fa fa-shopping-cart fa-2x"></i>
+                    <span class="nav-text">Cart</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="logout">
+            <li>
+                <a href=""><i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngFor="let product of myProduct">
+                        <div class="card">
+                            <img class="card-img" src="http://localhost:8080/RESTAPI2018/image/{{product.imageName}}">
+                            <div class="card-body">
+                                <h4 class="card-title">{{product.name}}</h4>
+                                <p class="card-text">description:{{product.description}}</p>
+                                <h5>price:{{product.price | currency: 'USD'}}</h5>
+                                <!--<p class="card-text">category:{{product.category}}</p>-->
+                                <p class="card-text">Quantity Available:{{product.quantityAdded}}</p>
+                                <button class="btn btn-primary" (click)="deleteMyProduct(product)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>

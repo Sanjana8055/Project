@@ -1,0 +1,65 @@
+<style>
+    body{
+        background: url('assets/images/dashboardbackground.jpg') no-repeat center;
+        background-size: cover;
+        font-family: cursive;
+    }
+    .container{
+        height: 100vh;
+        width: 100wh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
+
+
+<html>
+<body>
+   <!-- <button type="button" class="btn btn-default btn-sm"  style="color: rgba(255, 0, 0, 0.918); font-family: cursive;background-color: white;">
+        <a routerLink="/admin-page"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+      </button>-->
+
+   <div class="container" style="font-family: cursive; color: black;"  >
+        <table class="table table-hover">
+        <p > 
+        <thead>
+            <th scope>ID</th>
+            <th scope>CUSTOMER ID</th>
+            <th scope>DATE OF ORDER</th>
+            <th scope>ORDER STATUS</th>
+            <th scope>TOTAL PRICE</th>                
+           
+            
+           
+           
+        </thead>
+    
+  
+        <tbody>
+          
+            <tr *ngFor='let order of orders'>
+                
+                    <td>{{order.orderId}}</td>   
+                    <td>{{order.customer.custId}}</td>  
+                 <td>{{order.dateOfOrder}}</td> 
+                 <td>{{order.orderStatus}}</td> 
+                  <td>{{order.totalPrice}}</td>
+                 
+                   
+                
+            </tr>
+       
+        </tbody>
+    </p>
+    </table>
+
+    
+
+</div>
+
+</body>
+</html>
+
+

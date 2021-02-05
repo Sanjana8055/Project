@@ -1,0 +1,51 @@
+<div>
+    <h1>Reviews</h1>
+</div>
+
+<div>
+    <div vertical layout>
+        <div id="first">
+            <div id="first-div">
+                <img class="image1" src="http://localhost:8080/RESTAPI2018/image/{{product.imageName}}">
+            </div>
+            <div id="second-div">
+                <ng-container *ngIf=" {quantity:1} as variable">
+                    <h4>Product Name: {{product.productName}}</h4>
+                    <p>Description:{{product.description}}</p>
+                    <h5>Price:{{product.price | currency: 'USD'}}</h5>
+                    <p>Category:{{product.category}}</p>
+                    Select Quantity:<input type="number" min=1 name="variable.quantity" placeholder=1
+                        [(ngModel)]='variable.quantity'>
+                    <br />
+                    <div *ngIf="variable.quantity > product.quantityAdded">
+                        {{product.quantityAdded}} product are available
+                    </div>
+                    <br />
+                    <div *ngIf="variable.quantity > product.quantityAdded">
+                        {{product.quantityAdded}} product are available
+                    </div>
+                    <br />
+                    <button class="btn btn-primary">Add To Cart</button>
+                </ng-container>
+            </div>
+        </div>
+        Rating: <i class="fa fa-star" aria-hidden="true">☆{{rating}}</i>
+        <div id="second">
+            <h1 style="padding-top: 40px;padding-left: 5px;">Reviews</h1>
+            <div *ngIf="reviewsList.length > 0 ;else message">
+                <div id="x" *ngFor="let review of reviewsList">
+                    <h3>{{review.customer.custName}}</h3>
+                    <p>{{review.review}}</p>
+                </div>
+            </div>
+
+            <ng-template #message>
+                <h4>No Reviews Yet</h4>
+            </ng-template>
+
+        </div>
+    </div>
+
+
+
+</div>

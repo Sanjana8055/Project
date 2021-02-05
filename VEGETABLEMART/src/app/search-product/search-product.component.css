@@ -1,0 +1,157 @@
+html, body {
+  min-height: 100%;
+}
+body {
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+}
+
+.fa-2x{
+  font-size:2em;
+}
+.fa{
+  position:center;
+  display:table-cell;
+  width:100px;
+  height:60px;
+  text-align:center;
+  vertical-align: middle;
+  font-size:20px;
+}
+.main-menu:hover,nav.main-menu.expanded{
+  width:200px;
+  overflow:visible;
+}
+.main-menu{
+  background: rgba(0, 128, 0, 0.712);
+  border-right:1px solid white;
+  position:fixed;
+  top:0;
+  bottom:0;
+  height:100%;
+  left:0;
+  width:200px;
+  overflow:hidden;
+  transition: width 0.5s linear;
+  z-index:1000;
+  -webkit-transition:translateZ(0)
+  scale(1,1);
+  
+}
+.main-menu > ul{
+  margin:7px 0;
+}
+.main-menu li{
+  position: relative;
+  display: block;
+  width: 200px;
+}
+.main-menu li a{
+  position: relative;
+  display:table;
+  border-collapse: collapse;
+  border-spacing:0;
+  color: white;
+  font-family:cursive;
+  font-size:16px;
+  text-decoration: none;
+  -webkit-transition:translateZ(0)scale(1,1);
+  transition: all .1s linear;
+}
+.main-menu .nav-icon{
+  position: relative;
+  display: table-cell;
+  width: 100px;
+  height: 80px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 40px;
+}
+.main-menu .nav-text{
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  width: 190px;
+  font-family: cursive;
+  color: white;
+}
+.main-menu ul.logout{
+  position: absolute;
+  left:0;
+  bottom: 0;
+}
+.no-touch .scrollable.hover{
+  overflow-y: hidden;
+}
+.no-touch .scrollable.hover:hover{
+  overflow-y: auto;
+  overflow: visible;
+}
+a:hover,a:focus{
+  text-decoration: none;
+}
+nav{
+  user-select: none;
+}
+nav ul,nav li{
+  outline:0;
+  margin: 0;
+  padding: 0;
+}
+.main-menu li:hover a,
+nav.main-menu li.active.a,
+.dropdown-menu li a:hover,
+.dropdown-menu li a:focus,
+.dropdown-menu .active a,
+.dropdown-menu .active a:hover,
+.dropdown-menu .active a:focus,
+.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
+.dashboard-page nav.dropdown-menu ul li.active a{
+  color:rgba(0, 128, 0, 0.747);
+  background-color: rgba(0, 0, 0, 0.856)
+}
+.area{
+  float: left;
+  background: #e2e2e2;
+  width: 100%;
+  height: 100%;
+  
+}
+.container{
+  float:right;
+  margin:60px;
+  padding-right: 60px;
+ 
+
+}
+.card-img {
+  padding: 10px;
+  width: 250px;
+  height: 250px;
+  border-radius: 10%;
+} 
+.body2 {
+  background-color: rgb(173, 179, 180);
+}
+
+.rating {
+  width: 90px;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
+  position: relative;
+}
+
+.rating > label {
+  float: right;
+  display: inline;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  width: 1.1em;
+  cursor: pointer;
+  color: #000;
+}
+

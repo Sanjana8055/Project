@@ -1,0 +1,342 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .checked {
+            color: rgb(255, 187, 0);
+        }
+
+        .pop {
+            padding: 20px 20px 20px 410px;
+            height: 800px;
+            width: 70%;
+        }
+
+        .form-dark .md-form label {
+            color: rgb(26, 24, 24);
+        }
+
+        .form-dark input[type=text] {
+            color: rgb(20, 20, 20);
+            border: none;
+            border-bottom: 1px solid #000000;
+            background: transparent;
+
+        }
+
+        .form-dark input[type=text]:focus:not([readonly]) {
+
+            box-shadow: 0 1px 0 0 #111111;
+        }
+
+        .form-dark input[type=text]:focus:not([readonly])+label {
+            color: rgb(26, 24, 24);
+
+        }
+
+       
+    </style>
+
+</head>
+
+<body>
+    <div class="area"></div>
+   
+   
+    <nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top" style="background-color: rgba(0, 128, 0, 0.774) ;padding-left : 14%;">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto navbar-right">
+                <li>
+                    <form class="navbar-form navbar-right" action="/action_page.php" method="GET" id="search-form">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." name="productName"
+                                [(ngModel)]="productName" autocomplete="off" autofocus required>
+                            <div class="input-group-btn">
+                               
+                                <button class="btn btn-default" type="submit" (click)="searchProduct(productName)">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                 
+            </ul>
+        </div>
+    </nav>
+
+    <nav class="main-menu">
+        <ul> 
+            <li>
+                <br/>
+                <br/>
+                <br/>
+            </li>
+        <li>
+            <a class="nav-link" (click)="routeToProduct()"><i class="fa fa-tachometer fa-2x"></i>
+                <span class="nav-text">Dashboard</span>
+              </a>
+        </li>
+        <li>
+            <a class="nav-link" (click)="routeToProfile()"><i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">Profile</span>
+              </a>
+        </li>
+        
+       
+        <li>
+            <a class="nav-link" (click)="routeToMyOrders()"><i class="fa fa-shopping-bag fa-2x"></i>
+                <span class="nav-text">Orders</span>
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" (click)="routeToViewMyCart()"><i class="fa fa-shopping-cart fa-2x"></i>
+                <span class="nav-text">Cart</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="logout">
+        <li>
+            <a class="nav-link" (click)="callLogOut()"><i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">Logout</span>
+            </a>
+        </li>
+    </ul>
+
+         
+    </nav>
+
+
+ 
+    <div class="container" style="font-family: cursive; padding-left: 15%;">
+        <div>
+            <h2 style="color:rgb(0, 0, 0);  font-family: cursive ;text-align: center;">ORDERS</h2>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngFor="let order of orders" style=" border: 1px solid black;">
+            <div class="card-body">
+                <img class="card-img" src="http://localhost:8080/RESTAPI2018/image/{{order.product.imageName}}">
+                <p class="card-text">OrderId:{{order.orders.orderId}}</p>
+                <h4 class="card-title">{{order.product.productName}}</h4>
+                
+                <p class="card-title">Date of Order:{{order.orders.dateOfOrder}}</p>
+                <p>Price : {{order.product.price| currency: 'Rs.'}}</p>
+                <h5>Total price of Order :{{order.orders.totalPrice | currency: 'Rs.'}}</h5>
+            </div> 
+
+            <div class="modal-body">
+                <div class="txt-center">
+                    <form>
+                        <div class="rating">
+                            
+                            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                            <label for="star5"><i (click) = "giveRating(order.product.productId, 5)" class="fa fa-star" aria-hidden="true"></i></label>
+                            
+                            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                            <label for="star4"><i (click) = "giveRating(order.product.productId, 4)" class="fa fa-star" aria-hidden="true"></i></label>
+                            
+                            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                            <label for="star3"><i (click) = "giveRating(order.product.productId, 3)" class="fa fa-star" aria-hidden="true"></i></label>
+                            
+                            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                            <label for="star2"><i (click) = "giveRating(order.product.productId, 2)" class="fa fa-star" aria-hidden="true"></i></label>
+                            
+                            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                            <label for="star1"><i (click) = "giveRating(order.product.productId, 1)" class="fa fa-star" aria-hidden="true"></i>
+                            </label>
+
+                            <div class="clear"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #message>
+        <p style="text-align:center;">No orders</p>
+    </ng-template>
+</body>
+<!--
+
+<style>
+    .pop {
+        padding: 20px 20px 20px 410px;
+        height: 800px;
+        width: 70%;
+    }
+</style>
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="area"></div>
+    <div class="top-nav">
+      <ul>
+        <li>
+          
+         < <input type="text" placeholder="Search.." name="q" name="productName" [(ngModel)]="productName"
+          autocomplete="off" autofocus required>
+  
+          <input type="submit" (click)="searchProduct(productName)" style="background-color: blue; color: white;"
+          value="Search">
+        </li>
+      </ul>
+    </div>
+    <nav class="main-menu">
+
+        <ul>
+
+            <li>
+                <a class="nav-link" (click)="routeToProduct()"><i class="fa fa-tachometer fa-2x"></i>
+                    <span class="nav-text">Dashboard</span>
+                  </a>
+            </li>
+           < <li>
+                <a href=""><i class="fa fa-heart fa-2x"></i>
+                    <span class="nav-text">Wishlist</span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a class="nav-link" (click)="routeToProductAddedByMe()"><i class="fa fa-book fa-2x"></i>
+                    <span class="nav-text">My Products</span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" (click)="routeToProfile()"><i class="fa fa-user fa-2x"></i>
+                    <span class="nav-text">Profile</span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" (click)="routeToMyOrders()"><i class="fa fa-shopping-bag fa-2x"></i>
+                    <span class="nav-text">Orders</span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" (click)="routeToViewMyCart()"><i class="fa fa-shopping-cart fa-2x"></i>
+                    <span class="nav-text">Cart</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="logout">
+            <li>
+                <a class="nav-link" (click)="callLogOut()"><i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div>
+        <h2 style="color: black;  font-family: cursive ;text-align: center;">Orders</h2>
+    </div>
+    <div>
+        <h2 style="color: black;  font-family: cursive ;text-align: center;"></h2>
+    </div>
+    <div>
+        <h2 style="color: black;  font-family: cursive ;text-align: center;"></h2>
+    </div>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngFor="let order of orders">
+                <div class="card-body">
+                    <img class="card-img" src="http://localhost:8080/RESTAPI2018/image/{{order.product.imageName}}">
+                    <p class="card-text">OrderId:{{order.orders.orderId}}</p>
+                    <h4 class="card-title">{{order.product.productName}}</h4>
+                    <p class="card-title">{{order.product.description}}</p>
+                    <p>{{order.product.price}}</p>
+                    <h5>price:{{order.orders.totalPrice | currency: 'USD'}}</h5>
+                </di <button class="btn btn-primary" (click)="showEditPopup(order.product)">review </button>
+
+                <div class="modal-body">
+                    <div class="txt-center">
+                        <form>
+                            <div class="rating">
+                                
+                                <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                                <label for="star5"><i (click) = "giveRating(order.product.productId, 5)" class="fa fa-star" aria-hidden="true"></i></label>
+                                
+                                <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                                <label for="star4"><i (click) = "giveRating(order.product.productId, 4)" class="fa fa-star" aria-hidden="true"></i></label>
+                                
+                                <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                                <label for="star3"><i (click) = "giveRating(order.product.productId, 3)" class="fa fa-star" aria-hidden="true"></i></label>
+                                
+                                <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                                <label for="star2"><i (click) = "giveRating(order.product.productId, 2)" class="fa fa-star" aria-hidden="true"></i></label>
+                                
+                                <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                                <label for="star1"><i (click) = "giveRating(order.product.productId, 1)" class="fa fa-star" aria-hidden="true"></i>
+                                </label>
+
+                                <div class="clear"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+-->
+
+
+
+
+
+
+
+<!--
+
+<div class="modal fade pop" id="reviewModel">
+    <div class="modal-dialogue">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" data-dismiss="modal">&times;</span>
+                <h4 class="modal-title"></h4>
+            </div>
+
+            <div class="modal-body">
+
+
+                <form action="/html/tags/html_form_tag_action.cfm" method="post" #reviewForm="ngForm" class="form-group"
+                    novalidate>
+                    <div class="reviewBox">
+                        <textarea name="comments" id="comments" rows="4" cols="70"
+                            style="font-family:cursive;font-size:1.3em;" name="review" [(ngModel)]='review'>
+
+                        </textarea><br />
+                        <br />
+                        <button class="btn btn-primary btn-sm" (click)="reviewSubmit(review)"
+                            data-dismiss="modal">SUBMIT</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+-->
+
+
+
+<!--
+    (click)="callreview(order.books)
+-->

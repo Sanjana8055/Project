@@ -1,0 +1,275 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .checked {
+            color: rgb(255, 187, 0);
+        }
+
+        .pop {
+            padding: 20px 20px 20px 410px;
+            height: 800px;
+            width: 70%;
+        }
+
+        .form-dark .md-form label {
+            color: rgb(26, 24, 24);
+        }
+
+        .form-dark input[type=text] {
+            color: rgb(20, 20, 20);
+            border: none;
+            border-bottom: 1px solid #000000;
+            background: transparent;
+
+        }
+
+        .form-dark input[type=text]:focus:not([readonly]) {
+
+            box-shadow: 0 1px 0 0 #111111;
+        }
+
+        .form-dark input[type=text]:focus:not([readonly])+label {
+            color: rgb(26, 24, 24);
+
+        }
+
+       
+    </style>
+
+</head>
+
+<body>
+    <div class="area"></div>
+   
+   
+    <nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top" style="background-color: rgba(0, 128, 0, 0.774) ;padding-left : 14%;">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto navbar-right">
+                <li>
+                    <form class="navbar-form navbar-right" action="/action_page.php" method="GET" id="search-form">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." name="productName"
+                                [(ngModel)]="productName" autocomplete="off" autofocus required>
+                            <div class="input-group-btn">
+                               
+                                <button class="btn btn-default" type="submit" (click)="searchProduct(productName)">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                 
+            </ul>
+        </div>
+    </nav>
+
+    <nav class="main-menu">
+        <ul> 
+            <li>
+                <br/>
+                <br/>
+                <br/>
+            </li>
+        <li>
+            <a class="nav-link" (click)="routeToProduct()"><i class="fa fa-tachometer fa-2x"></i>
+                <span class="nav-text">Dashboard</span>
+              </a>
+        </li>
+        <li>
+            <a class="nav-link" (click)="routeToProfile()"><i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">Profile</span>
+              </a>
+        </li>
+        
+       
+        <li>
+            <a class="nav-link" (click)="routeToMyOrders()"><i class="fa fa-shopping-bag fa-2x"></i>
+                <span class="nav-text">Orders</span>
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" (click)="routeToViewMyCart()"><i class="fa fa-shopping-cart fa-2x"></i>
+                <span class="nav-text">Cart</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="logout">
+        <li>
+            <a class="nav-link" (click)="callLogOut()"><i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">Logout</span>
+            </a>
+        </li>
+    </ul>
+
+         
+    </nav>
+
+
+ 
+    <div class="container" style="font-family: cursive;">
+        <div>
+            <h2 style="color:rgb(0, 0, 0);  font-family: cursive ;text-align: center;">CART LIST</h2>
+        </div>
+        <div class="row text-center" style="padding-left: 15%;">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngFor="let cartItem of cartItems">
+                <div class="card">
+                  
+                        <img class="card-img"
+                            src="http://localhost:8080/RESTAPI2018/image/{{cartItem.product.imageName}}">
+                        <h4 class="card-title">{{cartItem.product.productName}}</h4>
+                        <p class="card-text"> Price : {{cartItem.price| currency: 'Rs.'}}</p>
+                        <p class="card-text">Quantity:{{cartItem.cartQuantity}}</p>
+                        <button class="btn btn-primary" (click)="removeFromCart(cartItem)">Remove From
+                            Cart</button>
+                    
+                </div>
+            </div>
+                    
+            
+        </div>
+        <div style="padding-left: 50%;text-align: center;  
+        
+        width: 500px;  
+        height: 200px;  
+        ">
+      
+            <h3 style="color: black;   align-items: center;">Total:{{cartTotal}};</h3>
+            <button  (click)="placeOrder(customer.custId)"style=" display: block;
+            margin-left: auto;
+            border: none;
+            outline: none;
+            background: rgba(0, 0, 255, 0.76);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+             color : white;
+            
+             align-items: center;
+            border-radius: 5px;
+            cursor: pointer;">Place Order</button>
+         </div>
+    </div>
+    <ng-template #message>
+        <p style="text-align:center;">Your Cart is Empty</p>
+    </ng-template>
+</body>
+<!--
+
+
+
+<body>
+    <div class="area"></div>
+    <div class="top-nav">
+      <ul>
+        <li>
+          
+          <input type="text" placeholder="Search.." name="q" name="productName" [(ngModel)]="productName"
+          autocomplete="off" autofocus required>
+  
+  
+          <input type="submit" (click)="searchProduct(productName)" style="background-color: blue; color: white;"
+          value="Search">
+        </li>
+      </ul>
+    </div>
+    <nav class="main-menu">
+
+        <ul>
+
+            <li>
+                <a class="nav-link" (click)="routeToProduct()"><i class="fa fa-tachometer fa-2x"></i>
+                    <span class="nav-text">Dashboard</span>
+                  </a>
+            </li>
+          
+            <li>
+                <a class="nav-link" (click)="routeToProfile()"><i class="fa fa-user fa-2x"></i>
+                    <span class="nav-text">Profile</span>
+                  </a>
+            </li>
+            <li>
+                <a class="nav-link" (click)="routeToMyOrders()"><i class="fa fa-shopping-bag fa-2x"></i>
+                    <span class="nav-text">Orders</span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" (click)="routeToViewMyCart()"><i class="fa fa-shopping-cart fa-2x"></i>
+                    <span class="nav-text">Cart</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="logout">
+            <li>
+                <a class="nav-link" (click)="callLogOut()"><i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div>
+        <h2 style="color: black;  font-family: cursive ;text-align: center;">Cart List</h2>
+    </div>
+    <div>
+        <h2 style="color: black;  font-family: cursive ;text-align: center;"></h2>
+    </div>
+    <div>
+        <h2 style="color: black;  font-family: cursive ;text-align: center;"></h2>
+    </div>
+    <div class="container">
+        <div class="row text-center">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngFor="let cartItem of cartItems">
+                        <div class="card">
+                            <div class="card-body">
+                                <img class="card-img"
+                                    src="http://localhost:8080/RESTAPI2018/image/{{cartItem.product.imageName}}">
+                                <h4 class="card-title">{{cartItem.product.productName}}</h4>
+                                <h4 class="card-title">{{cartItem.product.description}}</h4>
+                                <p class="card-text">{{cartItem.price}}</p>
+                                <p class="card-text">Quantity:{{cartItem.cartQuantity}}</p>
+                                <button class="btn btn-primary" (click)="removeFromCart(cartItem)">Remove From
+                                    Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            TotalPrice:{{cartTotal}};
+            <button class="btn btn-primary" (click)="placeOrder(customer.custId)">Place Order</button>
+        </div>
+    </div>
+    <ng-template #message>
+        <p style="text-align:center;">Your Cart is Empty</p>
+    </ng-template>
+
+</body>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

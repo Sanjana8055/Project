@@ -1,0 +1,446 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .checked {
+            color: rgb(255, 187, 0);
+        }
+
+        .pop {
+            padding: 20px 20px 20px 410px;
+            height: 800px;
+            width: 70%;
+        }
+
+        .form-dark .md-form label {
+            color: rgb(26, 24, 24);
+        }
+
+        .form-dark input[type=text] {
+            color: rgb(20, 20, 20);
+            border: none;
+            border-bottom: 1px solid #000000;
+            background: transparent;
+
+        }
+
+        .form-dark input[type=text]:focus:not([readonly]) {
+
+            box-shadow: 0 1px 0 0 #111111;
+        }
+
+        .form-dark input[type=text]:focus:not([readonly])+label {
+            color: rgb(26, 24, 24);
+
+        }
+
+       
+    </style>
+
+</head>
+
+<body>
+    <div class="area">
+   
+   
+    <nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top" style="background-color: rgba(0, 128, 0, 0.774) ;padding-left : 14%;">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto navbar-right">
+                <li>
+                    <form class="navbar-form navbar-right" action="/action_page.php" method="GET" id="search-form">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." name="productName"
+                                [(ngModel)]="productName" autocomplete="off" autofocus required>
+                            <div class="input-group-btn">
+                               
+                                <button class="btn btn-default" type="submit" (click)="searchProduct(productName)">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+
+    <nav class="main-menu">
+        <ul> 
+            <li>
+                <br/>
+                <br/>
+                <br/>
+            </li>
+        <li>
+            <a class="nav-link" (click)="routeToProduct()"><i class="fa fa-tachometer fa-2x"></i>
+                <span class="nav-text">Dashboard</span>
+              </a>
+        </li>
+        <li>
+            <a class="nav-link" (click)="routeToProfile()"><i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">Profile</span>
+              </a>
+        </li>
+        
+       
+        <li>
+            <a class="nav-link" (click)="routeToMyOrders()"><i class="fa fa-shopping-bag fa-2x"></i>
+                <span class="nav-text">Orders</span>
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" (click)="routeToViewMyCart()"><i class="fa fa-shopping-cart fa-2x"></i>
+                <span class="nav-text">Cart</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="logout">
+        <li>
+            <a class="nav-link" (click)="callLogOut()"><i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">Logout</span>
+            </a>
+        </li>
+    </ul>
+
+         
+    </nav>
+
+
+  <!-- <div class="container">
+        <div *ngIf="productName!=null">
+            <div *ngIf="searchedProduct;">
+                <div class="card">
+                    <img class="card-img" src="http://localhost:8080/RESTAPI2018/image/{{searchedProduct.imageName}}">
+                    <div class="card-body">
+                        <h4 class="card-title">{{searchedProduct.name}}</h4>
+                        <p class="card-text">description:{{searchedProduct.description}}</p>
+                        <h5>price:{{searchedProduct.price | currency: 'USD'}}</h5>
+                        <p class="card-text">category:{{searchedProduct.category}}</p>
+                        <p class="card-text">Quantity Available:{{searchedProduct.quantityAdded}}</p>
+                        <button class="btn btn-primary" (click)="handleAddToCart2(searchedProduct)">Add To Cart</button>
+                    </div>
+
+                </div>
+            </div>
+           
+
+        </div>
+    </div>
+
+--> 
+    <div class="container" style="font-family: cursive;padding-left: 18%; ">
+        <div>
+            <h2 style="color:rgb(0, 0, 0);  font-family: cursive ;text-align: center;">NEW PRODUCTS</h2>
+        </div>
+        <div class="row text-center" >
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"
+                *ngFor="let product of newProduct" style=" border: 1px solid black;">
+                <img (click)="callShowReviews(product.productId)" class="card-img"
+                    src="http://localhost:8080/RESTAPI2018/image/{{product.imageName}}">
+                
+                <ng-container *ngIf=" {quantity:1} as  variable" >
+                    <h4><b>{{product.productName}}</b></h4>
+                    <h5>Price:{{product.price | currency: 'Rs.'}}</h5>
+                    <h5>Quantity Available:{{product.quantityAdded}}</h5>
+                    Select Quantity:<input type="number" min=1 max={{product.quantityAdded}} name="variable.quantity"
+                        [(ngModel)]='variable.quantity'>
+                    <div *ngIf="variable.quantity > product.quantityAdded">
+                        {{product.quantityAdded}} product are available
+                    </div>
+                    <div id="second">
+                        <br />&nbsp;&nbsp;
+                        <div *ngIf="variable.quantity > product.quantityAdded || product.quantityAdded == 0;else message">
+                            <button class="btn btn-primary" disabled
+                                (click)="handleAddToCart2(product, variable.quantity)">Add To Cart</button>
+                        </div>
+                        <ng-template #message>
+                            <button class="btn btn-primary" (click)="handleAddToCart2(product, variable.quantity)">Add To Cart</button><br/><br/>
+                        </ng-template>
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+
+
+   <!-- <meta charset="UTF-8">
+    <title>Customer Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <style>
+        .pop {
+            padding: 20px 20px 20px 410px;
+            height: 800px;
+            width: 70%;
+        }
+
+        .form-dark .md-form label {
+            color: rgba(255, 0, 0, 0.644);
+        }
+        .submit-btn{
+        display: block;
+        margin-left: auto;
+        border: none;
+        align-content: center;
+        outline: none;
+        background: rgba(0, 0, 255, 0.726);
+        color: white;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor:pointer;
+
+    }
+
+
+
+        .form-dark input[type=text] {
+            color: rgb(20, 20, 20);
+            border: none;
+            border-bottom: 1px solid #000000;
+            background: transparent;
+
+        }
+
+        .form-dark input[type=text]:focus:not([readonly]) {
+
+            box-shadow: 0 1px 0 0 #111111;
+        }
+
+        .form-dark input[type=text]:focus:not([readonly])+label {
+            color: rgb(26, 24, 24);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="area"></div>
+  <div class="top-nav">
+    <ul>
+      <li>
+        
+        <input type="text" placeholder="Search.." name="q" name="productName" [(ngModel)]="productName"
+        autocomplete="off" autofocus required>
+
+
+        <input type="submit" (click)="searchProduct(productName)" style="background-color: blue; color: white;"
+        value="Search">
+      </li>
+    </ul>
+  </div>
+   
+    <nav class="main-menu" style="font-family: cursive;">
+
+        <ul>
+            
+
+            <li>
+                <a class="nav-link" (click)="routeToProduct()"><i class="fa fa-tachometer fa-2x"></i>
+                    <span class="nav-text">Dashboard</span>
+                  </a>
+            </li>
+            <li>
+                <a class="nav-link" (click)="routeToProfile()"><i class="fa fa-user fa-2x"></i>
+                    <span class="nav-text">Profile</span>
+                  </a>
+            </li>
+            
+           
+            <li>
+                <a class="nav-link" (click)="routeToMyOrders()"><i class="fa fa-shopping-bag fa-2x"></i>
+                    <span class="nav-text">Orders</span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" (click)="routeToViewMyCart()"><i class="fa fa-shopping-cart fa-2x"></i>
+                    <span class="nav-text">Cart</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="logout">
+            <li>
+                <a class="nav-link" (click)="callLogOut()"><i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+
+    
+
+  
+
+
+    <div>
+        <h2 style="color: black;  font-family: cursive ;text-align: center;">New Products</h2>
+    </div>
+    <div>
+        <h2 style="color: black;  font-family: cursive ;text-align: center;"></h2>
+    </div>
+    <div>
+        <h2 style="color: black;  font-family: cursive ;text-align: center;">Add items to your cart and order</h2>
+    </div>
+
+    <div class="container" style="font-family: cursive;   padding-left: 10%;">
+        <div class="row text-center">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" *ngFor="let product of newProduct">
+                <div class="card">
+                    <img class="card-img" src="http://localhost:8080/RESTAPI2018/image/{{product.imageName}}">
+                    <div class="card-body"  style="background-color: grey;">
+                        <ng-container *ngIf=" {quantity:1} as  variable">
+                            <h4 class="card-title">{{product.productName}}</h4>
+                            <p class="card-text">Description: {{product.description}}</p>
+                            <h5>price : {{product.price | currency: 'Rs.'}}</h5>
+                            
+                            <p class="card-text">Quantity Available : {{product.quantityAdded}}</p>
+                            Select Quantity : <input type="number" min=1 name="variable.quantity" placeholder=1
+                                [(ngModel)]='variable.quantity'>
+                            <div *ngIf="variable.quantity > product.quantityAdded">
+                                {{product.quantityAdded}} products are available
+                            </div>
+
+
+                            <br/><br/>
+
+
+
+                            <button class="btn btn-primary" (click)="handleAddToCart2(product, variable.quantity)">Add
+                                To Cart</button>
+
+                            <br/><br/>
+                            
+
+                        </ng-container>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+    <!--update-->
+
+    <div class="modal fade" id="custModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog form-dark" role="document">
+
+            <div class="modal-content card card-image" style="background-color: rgb(214, 216, 219);">
+                <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
+
+                    <div class="modal-header text-center pb-4">
+
+                        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3"
+                            style="color: rgb(53, 121, 247); font-family: Serif ">UPDATE</h3>
+                        <button type="button" class="close white-text" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="md-form pb-3">
+                            <label>Id</label>
+                            <input type="text" name="custId" [(ngModel)]="editObject.custId" class="form-control">
+
+                        </div><br />
+
+                        <div class="md-form pb-3">
+                            <label>Name</label>
+                            <input type="text" name="custName" [(ngModel)]="editObject.custName"
+                                class="form-control"><br />
+
+                        </div>
+
+                        <div class="md-form pb-3">
+                            <label>Email</label>
+
+                            <input type="text" name="email" [(ngModel)]="editObject.email" class="form-control"><br />
+                        </div>
+
+                        <div class="md-form pb-3">
+                            <label>State</label>
+
+                            <input type="text" name="state" [(ngModel)]="editObject.address.state"
+                                class="form-control"><br />
+                        </div>
+
+                        <div class="md-form pb-3">
+                            <label>Street</label>
+                            <input type="text" name="street" [(ngModel)]="editObject.address.street"
+                                class="form-control"><br />
+
+                        </div>
+
+                        <div class="md-form pb-3">
+                            <label data-error="wrong" data-success="right" for="Form-email5">City</label>
+                            <input type="text" name="city" [(ngModel)]="editObject.address.city"
+                                class="form-control"><br />
+
+                        </div>
+
+                        <div class="md-form pb-3">
+                            <label>HouseNo</label>
+                            <input type="text" name="houseNo" [(ngModel)]="editObject.address.houseNo"
+                                class="form-control"><br />
+
+                        </div>
+
+                        <div class="md-form pb-3">
+                            <label>Pincode</label>
+                            <input type="text" name="pincode" [(ngModel)]="editObject.address.pincode"
+                                class="form-control"><br />
+
+                        </div>
+
+
+                        <div class="md-form pb-3">
+                            <label data-error="wrong" data-success="right" for="Form-email5">Login Id</label>
+                            <input type="text" name="loginId" [(ngModel)]="editObject.loginId"
+                                class="form-control"><br />
+
+                        </div>
+
+                        <div class="md-form pb-3">
+                            <label>Password</label>
+                            <input type="text" name="password" [(ngModel)]="editObject.password"
+                                class="form-control"><br />
+
+                        </div>
+
+                        <div class="md-form pb-3">
+                            <label>Mobile No</label>
+                            <input type="text" name="mobileNo" [(ngModel)]="editObject.mobileNo"
+                                class="form-control"><br />
+
+                        </div>
+
+                        <button class="btn btn-primary btn-sm" (click)="updateCust()"
+                            data-dismiss="modal">UPDATE</button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+</body>

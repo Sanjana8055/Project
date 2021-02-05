@@ -1,0 +1,37 @@
+<style>
+    .reviewBox {
+        margin: auto;
+        width: 60%;
+        padding-top:200px;
+        bottom: 0;
+    }
+</style>
+
+
+<html>
+
+<body>
+    <div class="login-wrapper">
+        <form action="/html/tags/html_form_tag_action.cfm" method="post" #reviewForm="ngForm" class="form-group"
+            novalidate>
+            <div class="reviewBox">
+                <textarea name="comments" id="comments" rows="4" cols="70"
+                    style="font-family:cursive;font-size:1.3em;" name="review" [(ngModel)]='review'>
+
+                </textarea><br/>
+                <br/>
+                <button (click)="reviewSubmit(review)">SUBMIT</button>
+            </div>
+
+        </form>
+
+        
+
+
+    </div>
+
+
+</body>
+
+</html>
+

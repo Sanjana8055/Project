@@ -1,0 +1,251 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+      .checked {
+          color: rgb(255, 187, 0);
+      }
+
+      .pop {
+          padding: 20px 20px 20px 410px;
+          height: 800px;
+          width: 70%;
+      }
+
+      .form-dark .md-form label {
+          color: rgb(26, 24, 24);
+      }
+
+      .form-dark input[type=text] {
+          color: rgb(20, 20, 20);
+          border: none;
+          border-bottom: 1px solid #000000;
+          background: transparent;
+
+      }
+
+      .form-dark input[type=text]:focus:not([readonly]) {
+
+          box-shadow: 0 1px 0 0 #111111;
+      }
+
+      .form-dark input[type=text]:focus:not([readonly])+label {
+          color: rgb(26, 24, 24);
+
+      }
+
+     
+  </style>
+
+</head>
+
+<body>
+  <div style="background-color: cornsilk;">
+
+    <nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top" style="background-color: rgba(0, 128, 0, 0.774) ;padding-left : 14%;">
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto navbar-right">
+              <li>
+                  <form class="navbar-form navbar-right" action="/action_page.php" method="GET" id="search-form">
+                      <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Search..." name="productName"
+                              [(ngModel)]="productName" autocomplete="off" autofocus required>
+                          <div class="input-group-btn">
+                             
+                              <button class="btn btn-default" type="submit" (click)="searchProduct(productName)">
+                                  <i class="glyphicon glyphicon-search"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </form>
+              </li>
+              
+          </ul>
+      </div>
+  </nav>
+  <nav class="main-menu">
+      <ul> 
+          <li>
+              <br/>
+              <br/>
+              <br/>
+          </li>
+          <li>
+            <a class="nav-link" (click)="callHome()"><i class="fa fa-home fa-2x"></i>
+              <span class="nav-text">Home Page</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" (click)="routeToAdmin()"><i class="fa fa-tachometer fa-2x"></i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <li><a class="nav-link" (click)="routeToViewCustomers()"><i class="fa fa-users fa-2x"></i>
+              <span class="nav-text">View All Customers</span>
+            </a>
+          </li>
+          <li class="has-subnav">
+            <a class="nav-link" (click)="routeTosellProduct()"><i class="fa fa-book fa-2x"></i>
+              <span class="nav-text">Add a Product</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" (click)="routeToViewAllOrders()"><i class="fa fa-shopping-bag fa-2x"></i>
+              <span class="nav-text">View All Orders</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="logout">
+          <li>
+            <a class="nav-link" (click)="callLogOut()"><i class="fa fa-power-off fa-2x"></i>
+              <span class="nav-text">Logout</span>
+            </a>
+          </li>
+        </ul>
+       
+  </nav>
+
+
+
+  <div class="container" style="font-family: cursive; ">
+      <div>
+          <h2 style="color:rgb(0, 0, 0);  font-family: cursive ;text-align: center;">NEW PRODUCTS</h2><br/><br/>
+      </div>
+      <div class="row text-center" style="padding-left: 15%; ">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngFor="let product of newProduct">
+          <div class="card" style=" border: 1px solid black;">
+            <img class="card-img" src="http://localhost:8080/RESTAPI2018/image/{{product.imageName}}">
+            <div class="card-body" >
+              <ng-container *ngIf=" {quantity:1} as  variable">
+                <h4 class="card-title">{{product.productName}}</h4>
+                <p class="card-text">description : {{product.description}}</p>
+                <h5>price : {{product.price | currency: 'Rs.'}}</h5>
+               
+                <p class="card-text">Available Quantity : {{product.quantityAdded}}</p>
+                Select Quantity:<input type="number" min={{product.quantityAdded}} name="variable.quantity" placeholder=min
+                  [(ngModel)]='variable.quantity'>
+                  <br/><br/>
+                <button class="btn btn-primary" (click)="update(variable.quantity, product.productId)">Update</button><!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary" (click)="delete(product)">Delete</button>-->
+              </ng-container>
+            </div>
+  
+          </div>
+  
+        </div>
+      </div>
+  </div>
+</div>
+
+<!--
+
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+
+<body>
+  <div class="area"></div>
+  <div class="top-nav">
+    <ul>
+      <li>
+        
+        <input type="text" placeholder="Search.." name="q" name="productName" [(ngModel)]="productName"
+        autocomplete="off" autofocus required>
+
+
+<input type="submit" (click)="searchProduct(productName)" style="background-color: blue; color: white;"
+value="Search">
+      </li>
+    </ul>
+  </div>
+  <nav class="main-menu">
+
+    <ul>
+
+      <li>
+        <a class="nav-link" (click)="callHome()"><i class="fa fa-home fa-2x"></i>
+          <span class="nav-text">Home Page</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" (click)="routeToAdmin()"><i class="fa fa-tachometer fa-2x"></i>
+          <span class="nav-text">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <li><a class="nav-link" (click)="routeToViewCustomers()"><i class="fa fa-users fa-2x"></i>
+          <span class="nav-text">View All Customers</span>
+        </a>
+      </li>
+      <li class="has-subnav">
+        <a class="nav-link" (click)="routeTosellProduct()"><i class="fa fa-book fa-2x"></i>
+          <span class="nav-text">Add a Product</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" (click)="routeToViewAllOrders()"><i class="fa fa-shopping-bag fa-2x"></i>
+          <span class="nav-text">View All Orders</span>
+        </a>
+      </li>
+      
+    </ul>
+    <ul class="logout">
+      <li>
+        <a class="nav-link" (click)="callLogOut()"><i class="fa fa-power-off fa-2x"></i>
+          <span class="nav-text">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div>
+    <h2 style="color: black;  font-family: cursive ;text-align: center;"></h2>
+  </div>
+  <div>
+    <h2 style="color: black;  font-family: cursive ;text-align: center;"></h2>
+  </div>
+  <div>
+    <h2 style="color: black;  font-family: cursive ;text-align: center;"></h2>
+  </div>
+  <div>
+    <h2 style="color: black;  font-family: cursive ;text-align: center;">Products Added</h2>
+</div>
+
+<div>
+  <h2 style="color: black;  font-family: cursive ;text-align: center;"></h2>
+</div>
+  <div class="container" style="font-family: cursive; ">
+    <div class="row text-center">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngFor="let product of newProduct">
+        <div class="card">
+          <img class="card-img" src="http://localhost:8080/RESTAPI2018/image/{{product.imageName}}">
+          <div class="card-body">
+            <ng-container *ngIf=" {quantity:1} as  variable">
+              <h4 class="card-title">{{product.productName}}</h4>
+              <p class="card-text">description : {{product.description}}</p>
+              <h5>price : {{product.price | currency: 'Rs.'}}</h5>
+             
+              <p class="card-text">Available Quantity : {{product.quantityAdded}}</p>
+              Select Quantity:<input type="number" min={{product.quantityAdded}} name="variable.quantity" placeholder=min
+                [(ngModel)]='variable.quantity'>
+                <br/><br/>
+              <button class="btn btn-primary" (click)="update(variable.quantity, product.productId)">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-primary" (click)="delete(product)">Delete</button>
+            </ng-container>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>-->
+</body>

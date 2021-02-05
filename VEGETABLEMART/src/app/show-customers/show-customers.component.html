@@ -1,0 +1,72 @@
+
+<style>
+    body{
+        background: url('assets/images/dashboardbackground.jpg') no-repeat center;
+        background-size: cover;
+        font-family: cursive;
+    }
+    .container{
+        height: 100vh;
+        width: 100wh;
+      
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+
+<html>
+<body>
+<!-- 
+    
+<button type="button" class="btn btn-default btn-sm"  style="color: black ; font-family: cursive;background-color: white;">
+    <a routerLink="/admin-page"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+  </button>
+-->  
+<div class="container">
+    <table class="table table-hover"  style="font-family: cursive; color: black;">
+        
+        <thead>
+           
+                <th scope>ID</th>
+                <th scope>LOGINID</th>
+                <th scope>NAME</th>
+                <th scope>EMAIL</th>
+                <th scope>HOUSE NO</th>
+                <th scope>STREET</th>
+                <th scope>CITY</th>
+                
+                <th scope>STATE</th>
+                <th scope>PINCODE</th>
+                <th scope>MOBILE</th>
+                
+                
+           
+        </thead>
+        <tbody>
+            <tr *ngFor='let customer of customers'>
+                <td>{{customer.custId}}</td>
+                <td>{{customer.loginId}}</td>
+                <td>{{customer.custName}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.address.houseNo}}</td>
+                <td>{{customer.address.street}}</td>
+               
+                <td>{{customer.address.city}}</td>
+                <td>{{customer.address.state}}</td>
+                
+                <td>{{customer.address.pincode}}</td>
+                <td>{{customer.mobileNo}}</td>
+              
+                
+                
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+</body>
+</html>
